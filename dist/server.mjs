@@ -19,9 +19,9 @@ app.prepare().then(() => {
         //     console.log(`User ${username} joined room ${room}`);
         //     socket.to(room).emit("user_joined",`${username} joined room`);
         // })
-        socket.on("Patient", ({ data, sender }) => {
-            console.log(`Patient Information from ${sender} : ${data}`);
-            io.emit("Patient", { sender, data });
+        socket.on("Patient", (patientData) => {
+            console.log(`Patient Information from ${patientData.sender}`, patientData);
+            io.emit("Patient", patientData);
         });
         socket.on('disconnect', () => {
             console.log(`User disconnected: ${socket.id}`);
