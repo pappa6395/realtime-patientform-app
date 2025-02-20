@@ -1,5 +1,5 @@
 export const siteConfig = {
-    name: "MediCare-Realtime-Form",
+    name: "MediCare RealtimeForm",
     url: "https://medical-app-o384.vercel.app",
     ogImage: "/medicalPagePic.png",
     description:

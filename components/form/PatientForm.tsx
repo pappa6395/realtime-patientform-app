@@ -10,9 +10,11 @@ import NationalitySelect from "../formInput/NationalityInput";
 import Image from "next/image";
 import { Send, XCircle } from "lucide-react";
 import { socket } from "@/lib/socketClient";
+import { generateID } from "@/lib/generateID";
 
 
 type FormData = {
+  id: number;
   firstName: string;
   lastName: string;
   middleName?: string;
@@ -31,6 +33,7 @@ type FormData = {
   emergencyContact?: EmergencyContact;
   religion?: string;
   image: FileList;
+  viewed?: boolean;
   createdAt: Date;
 };
 
@@ -75,24 +78,18 @@ export default function PatientForm() {
     
   ];
 
+  // Language
   const [language, setLanguage] = useState('en');
   
   // Nationality
   const [selectedNationality, setSelectedNationality] = useState('');
-  const [nationalityDetails, setNationalityDetails] = useState<{
-    code: string;
-    name: string;
-    isCustom?: boolean;
-  } | null>(null);
-
   const handleNationalityChange = (
     demonym: string,
-    details: { code: string; name: string; isCustom?: boolean }
   ) => {
     setSelectedNationality(demonym);
-    setNationalityDetails(details);
   };
 
+  // Image
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (file) {
@@ -108,6 +105,7 @@ export default function PatientForm() {
     data.preferredLanguage = language;
     data.nationality = selectedNationality;
     data.createdAt = new Date();
+    data.id = Number(generateID());
     
     if (imageFile) {
         reader.onloadend = () => {
@@ -290,8 +288,8 @@ export default function PatientForm() {
         <div className="grid justify-center mt-4">
             <button 
                 type="submit" 
-                className="bg-blue-500 text-white 
-                px-4 py-2 mt-2 rounded flex gap-2"
+                className="bg-blue-500 text-white shadow-md
+                px-4 py-2 mt-2 rounded flex gap-2 active:scale-95"
             >
                 <Send />
                 Submit

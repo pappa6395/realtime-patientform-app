@@ -100,15 +100,15 @@ export default function Footer() {
     ]
 
     return (
-        <footer className="text-gray-500 bg-slate-100 
+        <footer className="text-gray-500 bg-slate-100 dark:bg-emerald-800
         px-4 py-5 max-w-screen mx-auto md:px-8 mb-0 mt-auto">
             <div className="justify-between md:flex">
                 <div className="flex-1">
                     <div className="max-w-xs">
                         <div className='flex items-center gap-2'>
-                            <p className='font-bold'>MediCare-Realtime-Form</p>
+                            <p className='font-bold dark:text-slate-100'>MediCare-Realtime-Form</p>
                         </div>
-                        <p className="leading-relaxed mt-2 text-[15px]">
+                        <p className="leading-relaxed mt-2 text-[15px] dark:text-slate-400">
                             Our mission is to help people find the best doctors in their area.
                         </p>
                     </div>
@@ -144,7 +144,8 @@ export default function Footer() {
                                         <li key={idx}>
                                             <a 
                                                 href={el.href}
-                                                className="hover:underline hover:text-indigo-600"
+                                                className="hover:underline hover:text-blue-500
+                                                dark:text-slate-400"
                                             
                                             >
                                                 { el.name }
@@ -158,7 +159,7 @@ export default function Footer() {
                 </div>
             </div>
             <div className="mt-8 py-2 border-t items-center justify-center sm:flex">
-                <div className="mt-4 sm:mt-0">
+                <div className="mt-4 sm:mt-0 dark:text-slate-300">
                     &copy; {(new Date).getFullYear()} Created with 
                     {' '}<FaHeart className='inline text-pink-500'/> by Pap Nontachai.
                 </div>

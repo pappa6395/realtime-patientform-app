@@ -189,7 +189,7 @@ const NationalitySelect: React.FC<NationalitySelectProps> = ({
                 <input
                   ref={searchInputRef}
                   type="text"
-                  className="w-full px-3 py-2 border rounded"
+                  className="w-full px-3 py-2 border rounded text-slate-800"
                   placeholder="Search nationalities..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}

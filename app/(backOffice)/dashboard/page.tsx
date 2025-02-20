@@ -1,14 +1,13 @@
-import StaffView from '@/components/form/StaffView'
+import PatientDetails from '@/components/dashboard/PatientDetails'
 import React from 'react'
 
 const page = () => {
 
-
   return (
 
-    <div className='grid min-h-screen md:w-full w-fit 
+    <div className='grid min-h-screen
     bg-gradient-to-br from-white via-teal-500 to-sky-500'>
-        <StaffView />
+        <PatientDetails />
     </div>
 
   )
