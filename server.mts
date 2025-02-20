@@ -18,12 +18,6 @@ app.prepare().then(() => {
     io.on('connection', (socket) => {
         console.log(`User connected: ${socket.id}`);
 
-        // socket.on("join-room", ({room, username}) => {
-        //     socket.join(room);
-        //     console.log(`User ${username} joined room ${room}`);
-        //     socket.to(room).emit("user_joined",`${username} joined room`);
-        // })
-
         socket.on("Patient", (patientData) => {
             console.log(`Patient Information from ${patientData.sender}`, patientData);
             io.emit("Patient", patientData);
