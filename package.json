@@ -6,7 +6,7 @@
     "dev": "next dev --turbopack",
     "dev:socket": "cross-env NODE_OPTIONS='--loader ts-node/esm --trace-warnings --no-warnings' ts-node server.mts",
     "build": "next build",
-    "build:socket": "next build && tsc --project tsconfig.server.json",
+    "build:socket": "npm install @types/react @types/react-dom && next build && tsc --project tsconfig.server.json",
     "start": "next start",
     "start:socket": "NODE_ENV=production node dist/server.mjs",
     "lint": "next lint"
@@ -18,6 +18,7 @@
     "@types/ws": "^8.5.14",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "core-js": "^3.40.0",
     "cross-env": "^7.0.3",
     "dotenv": "^16.4.7",
     "lucide-react": "^0.475.0",
@@ -40,7 +41,7 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@types/node": "^20",
-    "@types/react": "^19",
+    "@types/react": "^19.0.10",
     "@types/react-dom": "^19",
     "autoprefixer": "^10.4.20",
     "eslint": "^9",
