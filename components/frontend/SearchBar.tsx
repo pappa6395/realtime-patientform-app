@@ -24,10 +24,12 @@ const SearchBar = () => {
   // Filter patients based on the query (ID or name)
   const filteredPatients = patientData.filter((patient) => {
     const lowerCaseQuery = query.toLowerCase();
-    const patientsId = typeof patient.id === 'string' ? patient.id.toLowerCase() : patient?.id || "";
+    const id = patient.id !== undefined && patient.id !== null 
+    ? patient.id.toString().toLowerCase() 
+    : '';
     return (
-      patientsId?.includes(lowerCaseQuery) ||
-      `${patient?.firstName || ""} ${patient?.lastName || ""}`.toLowerCase().includes(lowerCaseQuery)
+      id.includes(lowerCaseQuery) || // Search by ID
+      `${patient?.firstName || ""} ${patient?.lastName || ""}`.toLowerCase().includes(lowerCaseQuery) // Search by full name
     );
   });
 
