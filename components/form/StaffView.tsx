@@ -120,7 +120,7 @@ export default function StaffView() {
             </div>
             ))}
             <div>
-              <p className="text-sm text-slate-50">
+              <p className="text-sm pl-2 text-slate-700 dark:text-slate-50">
                 {patientData.length} new patient form submissions
               </p>
               {patientStatus.map((p, i) => {
