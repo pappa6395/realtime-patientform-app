@@ -1,5 +1,4 @@
 import { PatientData } from '@/type/types'
-import { Calendar, ClipboardPlus } from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
 
@@ -22,14 +21,14 @@ const PatientCard = ({
             <div className='flex gap-3 items-center'>
                 <Image 
                     src={patient.image || "/globe.svg"}
-                    alt={patient.firstName}
+                    alt={patient?.firstName || ""}
                     width={100}
                     height={100}
                     className='w-10 h-10 aspect-square rounded-full object-cover'
                 />
                 <div>
-                    <h3 className='text-base font-semibold'>{`${patient.firstName} ${patient.lastName}`}</h3>
-                    <p className='text-sm text-gray-600 dark:text-slate-50'>{patient.email}</p>
+                    <h3 className='text-base font-semibold'>{`${patient?.firstName || ""} ${patient?.lastName || ""}`}</h3>
+                    <p className='text-sm text-gray-600 dark:text-slate-50'>{patient?.email || ""}</p>
                 </div>
                 {!patient.viewed && (
                     <span className="absolute top-2 right-2 w-3 h-3 rounded-full bg-green-500 shadow-lg border border-slate-700"></span>

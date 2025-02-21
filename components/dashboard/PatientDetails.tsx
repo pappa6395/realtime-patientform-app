@@ -24,27 +24,30 @@ const PatientDetails = () => {
   } = context;
 
   useEffect(() => {
-    const transformData = patientData.map((patient) => {
+    const transformData = patientData?.map((patient) => {
         return {
-            id: patient.id,
-            firstName: patient.firstName,
-            lastName: patient.lastName,
-            dateOfBirth: patient.dateOfBirth,
-            gender: patient.gender,
-            email: patient.email,
-            phoneNumber: patient.phoneNumber,
-            preferredLanguage: patient.preferredLanguage,
-            nationality: patient.nationality,
-            emergencyContact: patient.emergencyContact,
-            unitNumber: patient.unitNumber,
-            streetAddress: patient.streetAddress,
-            city: patient.city,
-            state: patient.state,
-            postalCode: patient.postalCode,
-            country: patient.country,
-            status: patient.status,
-            createdAt: patient.createdAt,
-            viewed: patient.viewed,
+            id: patient.id || "",
+            firstName: patient.firstName || "",
+            lastName: patient.lastName || "",
+            dateOfBirth: patient.dateOfBirth || "",
+            gender: patient.gender || "",
+            email: patient.email || "",
+            phoneNumber: patient.phoneNumber || "",
+            preferredLanguage: patient.preferredLanguage || "",
+            nationality: patient.nationality || "",
+            emergencyContact: {
+                name: patient.emergencyContact?.name || "",
+                relationship: patient.emergencyContact?.relationship || "",
+            },
+            unitNumber: patient.unitNumber || "",
+            streetAddress: patient.streetAddress || "",
+            city: patient.city || "",
+            state: patient.state || "",
+            postalCode: patient.postalCode || "",
+            country: patient.country || "",
+            status: patient.status || "active",
+            createdAt: patient.createdAt || new Date(),
+            viewed: patient.viewed || false,
             image: patient.image || "/globe.svg"
 
         }
@@ -71,8 +74,8 @@ const PatientDetails = () => {
         <div>
             <div className='flex items-start justify-between'>
                 <Image
-                    src={selectedPatient.image || "/globe.svg"}
-                    alt={selectedPatient.firstName}
+                    src={selectedPatient?.image || "/globe.svg"}
+                    alt={selectedPatient?.firstName || ""}
                     width={200}
                     height={200} 
                     className='w-36 h-44 aspect-auto object-contain'
@@ -80,11 +83,11 @@ const PatientDetails = () => {
                 <div className='flex flex-col items-center gap-4'>
                     <h2 className="scroll-m-20 pb-2 text-lg 
                     font-medium tracking-tight first:mt-2">
-                        {getNormalDate(selectedPatient.createdAt)}
+                        {getNormalDate(selectedPatient?.createdAt || new Date())}
                     </h2>
                     <div className='flex items-center font-medium text-slate-500 text-sm'>
                         <Clock9 className='w-4 h-4 mr-2'/>
-                        <span>{timeAgo(selectedPatient.createdAt)}</span>
+                        <span>{timeAgo(selectedPatient.createdAt || new Date())}</span>
                     </div>
                 </div>
             </div>
@@ -93,7 +96,7 @@ const PatientDetails = () => {
                 <h2 className="scroll-m-20 pb-2 text-2xl 
                 font-medium tracking-tight first:mt-2"
                 >
-                Profile ID : <span className='text-xl ml-2'>{selectedPatient.id}</span>
+                Profile ID : <span className='text-xl ml-2'>{selectedPatient.id || ""}</span>
                 </h2>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
@@ -197,31 +200,31 @@ const PatientDetails = () => {
                 divide-gray-200 border-b"
                 >
                     <p className='px-3 text-slate-500'>Preferred Language</p>
-                    <p className='px-4'>{selectedPatient.preferredLanguage}</p>
+                    <p className='px-4'>{selectedPatient?.preferredLanguage || ""}</p>
                 </div>
                 <div className="col-span-3 flex px-4 py-3 space-x-2 divide-x-2 
                     divide-gray-200 border-b"
                 >
                     <p className='px-3 text-slate-500'>Nationality</p>
-                    <p className='px-4'>{selectedPatient.nationality}</p>
+                    <p className='px-4'>{selectedPatient?.nationality || ""}</p>
                 </div>
                 <div className="col-span-2 flex px-4 py-3 space-x-2 divide-x-2 
                 divide-gray-200 border-b"
                 >
                     <p className='px-3 text-slate-500'>Emergency Contact</p>
-                    <p className='px-4'>{selectedPatient.emergencyContact?.name}</p>
+                    <p className='px-4'>{selectedPatient?.emergencyContact?.name || ""}</p>
                 </div>
                 <div className="col-span-3 flex px-4 py-3 space-x-2 divide-x-2 
                 divide-gray-200 border-b"
                 >
                     <p className='px-3 text-slate-500'>Relationship</p>
-                    <p className='px-4'>{selectedPatient.emergencyContact?.relationship}</p>
+                    <p className='px-4'>{selectedPatient?.emergencyContact?.relationship || ""}</p>
                 </div>
                 <div className="col-span-2 flex px-4 py-3 space-x-2 divide-x-2 
                 divide-gray-200 border-b"
                 >
                     <p className='px-3 text-slate-500'>Religion (optional)</p>
-                    <p className='px-4'>{selectedPatient.religion}</p>
+                    <p className='px-4'>{selectedPatient?.religion || ""}</p>
                 </div>
             </div>
         </div>

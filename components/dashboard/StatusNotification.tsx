@@ -24,8 +24,8 @@ const StatusNotification = () => {
     useEffect(() => {
         const Patients = patientStatus.map((p) => {
             return {
-                patientId: p.patientId,
-                status: p.status,
+                patientId: p.patientId || "",
+                status: p.status || "active",
             }
         })
         setStatusEnter(Patients);
@@ -69,7 +69,7 @@ const StatusNotification = () => {
             justify-center w-6 h-6 text-xs font-bold text-white 
             bg-red-500 rounded-full -top-0 start-6 dark:border-gray-900"
             >
-                {statusEnter.length}
+                {statusEnter.length || 0}
             </p>
           )}
         </button>

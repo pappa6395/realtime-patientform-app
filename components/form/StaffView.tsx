@@ -121,7 +121,7 @@ export default function StaffView() {
             ))}
             <div>
               <p className="text-sm pl-2 text-slate-700 dark:text-slate-50">
-                {patientData.length} new patient form submissions
+                {patientData?.length || 0} new patient form submissions
               </p>
               {patientStatus.map((p, i) => {
                 if (p.status === 'inactive' || p.status === 'submitted') {
@@ -133,7 +133,7 @@ export default function StaffView() {
                 } else {
                   return (
                     <div key={i}>
-                      Patient {p.patientId}: 
+                      Patient {p.patientId || ""}: 
                       {p.status === 'active' && <span className="text-green-500">🟢 Active</span>}
                       {p.status === 'filling' && <span className="text-yellow-500"> 🟡 Filling</span>}
                       {p.status === 'idle' && <span className="text-blue-500"> 🔵 idle</span>}

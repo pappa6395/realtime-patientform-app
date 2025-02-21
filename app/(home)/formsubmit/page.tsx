@@ -15,7 +15,7 @@ const page = () => {
       <div className='flex flex-col items-center gap-4'>
         <CircleCheckBig className='text-lime-300 size-36'/>
         <p className='text-slate-50 text-2xl font-semibold'>
-          ID : {patientId} 
+          ID : {patientId || ""} 
         </p>
         <p className='text-slate-50 text-3xl font-semibold'>Form submission successful</p>
         <p className='text-slate-50 text-2xl font-semibold'>

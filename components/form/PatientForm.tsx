@@ -145,7 +145,7 @@ export default function PatientForm() {
         data.preferredLanguage = language;
         data.nationality = selectedNationality;
         data.createdAt = new Date();
-        data.id = patientId;
+        data.id = patientId || "";
         data.status = "submitted";
 
         localStorage.setItem('isSubmitted', 'true');
@@ -154,7 +154,7 @@ export default function PatientForm() {
             socket.emit("Patient", { ...data, image: imageData, sender: data.firstName });
             socket.emit("formStatus", { patientId, status: "submitted" });
 
-            router.push(`/formsubmit?id=${data.id}`);
+            router.push(`/formsubmit?id=${data.id || ""}`);
             setIsLoading(false);
         };
 
