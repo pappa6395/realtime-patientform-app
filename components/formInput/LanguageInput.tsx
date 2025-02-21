@@ -27,7 +27,7 @@ const LanguageSelect: React.FC<LanguageSelectProps> = ({
   const dropdownRef = useRef<HTMLDivElement>(null);
   const searchInputRef = useRef<HTMLInputElement>(null);
 
-  // Most frequently used languages, including Thai
+
   const languages: Language[] = [
     { code: 'en', name: 'English', nativeName: 'English' },
     { code: 'zh', name: 'Chinese', nativeName: '中文' },
@@ -51,7 +51,7 @@ const LanguageSelect: React.FC<LanguageSelectProps> = ({
     { code: 'fa', name: 'Persian', nativeName: 'فارسی' },
   ];
 
-  // Filter languages based on search term
+  
   const filteredLanguages = languages.filter(
     (lang) =>
       lang.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -59,10 +59,10 @@ const LanguageSelect: React.FC<LanguageSelectProps> = ({
       lang.code.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Get currently selected language name
+  
   const selectedLanguage = languages.find((lang) => lang.name === value);
 
-  // Close dropdown when clicking outside
+  
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -76,7 +76,7 @@ const LanguageSelect: React.FC<LanguageSelectProps> = ({
     };
   }, []);
 
-  // Focus search input when dropdown opens
+  
   useEffect(() => {
     if (isOpen && searchInputRef.current) {
       searchInputRef.current.focus();

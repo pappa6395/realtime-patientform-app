@@ -4,29 +4,62 @@ import { PatientContext } from '@/context/patientContext';
 import { getAgeFromDoB } from '@/lib/getAgeFromDoB';
 import { getNormalDate } from '@/lib/getNormalDate';
 import { timeAgo } from '@/lib/timeAgo';
+import { PatientData } from '@/type/types';
 import { Ambulance, Calendar, Clock9 } from 'lucide-react'
 import Image from 'next/image';
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 
 const PatientDetails = () => {
 
-    const context = useContext(PatientContext);
+  const context = useContext(PatientContext);
 
   if (!context) {
     throw new Error("PatientDetails must be used within a PatientProvider");
   }
+  const [patientEnter, setPatientEnter] = useState<PatientData[]>([]);
+  const { 
+    patientData, 
+    selectedPatient,
+  } = context;
 
-  const { selectedPatient } = context;
+  useEffect(() => {
+    const transformData = patientData.map((patient) => {
+        return {
+            id: patient.id,
+            firstName: patient.firstName,
+            lastName: patient.lastName,
+            dateOfBirth: patient.dateOfBirth,
+            gender: patient.gender,
+            email: patient.email,
+            phoneNumber: patient.phoneNumber,
+            preferredLanguage: patient.preferredLanguage,
+            nationality: patient.nationality,
+            emergencyContact: patient.emergencyContact,
+            unitNumber: patient.unitNumber,
+            streetAddress: patient.streetAddress,
+            city: patient.city,
+            state: patient.state,
+            postalCode: patient.postalCode,
+            country: patient.country,
+            status: patient.status,
+            createdAt: patient.createdAt,
+            viewed: patient.viewed,
+            image: patient.image || "/globe.svg"
 
-  if (!selectedPatient) {
+        }
+    })
+    setPatientEnter(transformData)
+  },[patientData])
+
+    if (!selectedPatient) {
     return (
         <div className="flex justify-center items-center h-screen">
             <div className='flex flex-col items-center'>
                 <Ambulance className='text-slate-600 size-14'/>
                 <p className='text-slate-600 text-xl'>No patient selected</p>
             </div>
-            
+
         </div>
     )
   }

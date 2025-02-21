@@ -18,7 +18,7 @@ export type GenderOptionProps = {
 }
 
 export type PatientData = {
-  id: number;
+  id: string;
   firstName: string;
   lastName: string;
   middleName?: string;
@@ -39,4 +39,11 @@ export type PatientData = {
   image?: string;
   viewed?: boolean;
   createdAt: Date;
+  status?: "active" | "filling" | "submitted" | "inactive" | "idle";
+  
 };
+
+export type PatientStatus = {
+  patientId: string;
+  status: "active" | "filling" | "submitted" | "inactive" | "idle";
+}

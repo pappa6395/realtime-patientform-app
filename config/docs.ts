@@ -13,19 +13,19 @@ export const docsConfig: DocsConfig = {
     },
     {
       title: "Find Doctors",
-      href: "/findDoctors",
+      href: "#",
     },
     {
       title: "Telehealth Visit",
-      href: "/category?mode=Telehealth",
+      href: "#",
     },
     {
       title: "In-Person Visit",
-      href: "/category?mode=In-person%20doctor%20visit",
+      href: "#",
     },
     {
       title: "Be Service Provider",
-      href: "/join/doctors",
+      href: "#",
     },
   ]
 }

@@ -22,8 +22,8 @@ export default function RadioInput({
     errors,
 }: RadioInputProps) {
     return (
-        <div className="grid gap-3 pt-2">
-            <h3 className="font-semibold text-gray-900 dark:text-white">{label}</h3>
+        <div className="grid gap-3">
+            <h3 className="font-semibold text-sm text-gray-900 dark:text-white">{label}</h3>
             <ul className="items-center w-full text-sm font-medium text-gray-900 
             bg-white border border-gray-200 rounded-lg sm:flex dark:bg-teal-700 
             dark:border-teal-500 dark:text-white">
@@ -57,7 +57,7 @@ export default function RadioInput({
             })}
             </ul>
             {errors[`${name}`] && (
-                <span className="text-red-600  text-sm">{label} is required</span>
+                <span className="text-red-600 dark:text-red-300 font-semibold  text-xs">{label} is required</span>
             )}
         </div>
     );

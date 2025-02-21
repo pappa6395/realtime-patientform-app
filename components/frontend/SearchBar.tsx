@@ -1,27 +1,54 @@
 "use client"
 
 
+import { PatientContext } from "@/context/patientContext";
 import { Search } from "lucide-react";
 import { useRouter } from "next/navigation";
-import React from "react";
+import React, { useContext } from "react";
 
 const SearchBar = () => {
 
+  const context = useContext(PatientContext)
   const [query, setQuery] = React.useState("");
-  const router = useRouter()
 
-  function handleSearch (e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    router.push(`/search?query=${query}`)
-    setQuery("")
-    
+  if (!context) {
+    throw new Error("SearchBar must be used within a PatientProvider");
   }
+
+  const { patientData, setSelectedPatient } = context;
+
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    // You can add additional logic here if needed
+  };
+
+  // Filter patients based on the query (ID or name)
+  const filteredPatients = patientData.filter((patient) => {
+    const lowerCaseQuery = query.toLowerCase();
+    return (
+      patient.id.toLowerCase().includes(lowerCaseQuery) || // Search by ID
+      `${patient.firstName} ${patient.lastName}`.toLowerCase().includes(lowerCaseQuery) // Search by full name
+    );
+  });
+
+  const handleClick = (patientId: string) => {
+
+    const matchPatient = patientData.find((p) => p.id === patientId);
+    if (matchPatient) {
+      setSelectedPatient(matchPatient);
+      setQuery("");
+    } else {
+      console.log(`Patient id ${patientId} data not found`);
+    }
+}
+
+
 
   return (
     <div>
       <form className={"max-w-md"} onSubmit={handleSearch}>
           <div className="relative">
-            <div className="flex items-center px-2">
+            <div className="flex items-center px-2 relative">
               <input
                 type="search"
                 id="default-search"
@@ -30,9 +57,9 @@ const SearchBar = () => {
                 className="block text-sm sm:w-[300px] md:w-[330px] h-10 p-4 ps-8 text-gray-900 
                 border border-gray-300 rounded-full bg-gray-50 focus:ring-teal-500 
                 focus:border-teal-500 dark:bg-gray-700 dark:border-gray-600 
-                dark:placeholder-gray-400 dark:text-gray-800 dark:focus:ring-teal-500 
+                dark:placeholder-gray-400 dark:text-gray-100 dark:focus:ring-teal-500 
                 dark:focus:border-teal-500 placeholder:px-3"
-                placeholder="Search doctors, services..."
+                placeholder="Search Patients, ID..."
                 required
               />
               <Search className="absolute inset-x-3
@@ -50,6 +77,27 @@ const SearchBar = () => {
             </div>
           </div>
       </form>
+      {/* Display search results */}
+      {query && (
+        <div className="absolute top-14 start-20 w-60 bg-white dark:bg-slate-600 rounded-md shadow-lg">
+          <h3 className="text-lg font-semibold mb-2 px-3">Search Results</h3>
+          <div className="px-3">
+            {filteredPatients.map((patient) => (
+              <button 
+                key={patient.id}
+                onClick={() => handleClick(patient.id)} 
+                className="mb-2 p-2 bg-gray-100 dark:bg-gray-700 rounded-lg active:scale-95">
+                <p className="text-gray-900 dark:text-gray-100">
+                  <span className="font-semibold">{patient.firstName} {patient.lastName}</span> - ID: {patient.id}
+                </p>
+              </button>
+            ))}
+          </div>
+          {filteredPatients.length === 0 && (
+            <p className="text-gray-500 dark:text-gray-400">No patients found.</p>
+          )}
+        </div>
+      )}
     </div>
   );
 };

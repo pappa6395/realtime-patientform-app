@@ -1,9 +1,9 @@
 "use client"
 
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import { socket } from "@/lib/socketClient";
 import PatientCard from "../dashboard/PatientCard";
-import { PatientData } from "@/type/types";
+import { PatientData, PatientStatus } from "@/type/types";
 import { PatientContext } from "@/context/patientContext";
 import Logo from "../Logo";
 
@@ -16,23 +16,60 @@ export default function StaffView() {
     throw new Error("StaffView must be used within a PatientProvider");
   }
 
-  const { patientData, setPatientData, selectedPatient, setSelectedPatient } = context;
+  const { 
+    patientData, 
+    setPatientData,
+    selectedPatient, 
+    setSelectedPatient,
+    patientId, 
+    setPatientId,
+    patientStatus, 
+    setPatientStatus 
+  } = context;
+
 
   useEffect(() => {
     socket.on("Patient", (data: PatientData) => {
       data.createdAt = new Date(data.createdAt);
       data.viewed = false;
+      data.status = "submitted";
       setPatientData((prevPatients) => {
         const updatedPatients = [...prevPatients, data];
         localStorage.setItem("patients", JSON.stringify(updatedPatients));
 
         return updatedPatients;
       });
-      
     });
+    socket.on("updatedFormStatus", ({patientId, status}) => {
+      console.log(`recieved ID ${patientId} and status ${status}`);
+      let updatedStatus;
+      
+      setPatientStatus((prevStatus) => {
+        const existingIndex = prevStatus.findIndex((p) => p.patientId === patientId);
+        if (existingIndex !== -1) {
+          updatedStatus = [...prevStatus];
+          updatedStatus[existingIndex].status = status;
+          
+        } else {
+          updatedStatus = [...prevStatus, { patientId, status }];
+        }
+        localStorage.setItem("PatientStatus", JSON.stringify(updatedStatus));
+        return updatedStatus;
+      });
+
+      setPatientData((prevPatients) => {
+        const updatedPatients = prevPatients.map((p) => 
+          p.id === patientId ? { ...p, status} : p 
+      );
+      localStorage.setItem("patients", JSON.stringify(updatedPatients));
+
+        return updatedPatients;
+      })
+    })
 
     return () => {
       socket.off("Patient");
+      socket.off("updatedFormStatus");
     };
   }, []);
 
@@ -71,7 +108,7 @@ export default function StaffView() {
           classLogo="w-5 h-5"
         />
       </div>
-        <aside className="space-y-1.5 h-[500px] overflow-scroll z-50 mx-2 px-2">
+        <aside className="space-y-1.5 h-[800px] overflow-scroll z-50 mx-2 px-2">
         <h2 className="text-xl font-bold mb-4">Patient Info Data Box</h2>
             {patientData.map((patient, index) => (
             <div
@@ -82,6 +119,29 @@ export default function StaffView() {
                 <PatientCard patient={patient} onSelect={handleSelectPatient} />
             </div>
             ))}
+            <div>
+              <p className="text-sm text-slate-50">
+                {patientData.length} new patient form submissions
+              </p>
+              {patientStatus.map((p, i) => {
+                if (p.status === 'inactive' || p.status === 'submitted') {
+                  return (
+                    <div key={i}>
+                      {""}
+                    </div>
+                  )
+                } else {
+                  return (
+                    <div key={i}>
+                      Patient {p.patientId}: 
+                      {p.status === 'active' && <span className="text-green-500">🟢 Active</span>}
+                      {p.status === 'filling' && <span className="text-yellow-500"> 🟡 Filling</span>}
+                      {p.status === 'idle' && <span className="text-blue-500"> 🔵 idle</span>}
+                    </div>
+                  )
+                }
+              })}
+            </div>
         </aside>
     </div>
   );

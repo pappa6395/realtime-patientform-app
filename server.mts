@@ -15,16 +15,39 @@ const handle = app.getRequestHandler();
 app.prepare().then(() => {
     const httpServer = createServer(handle);
     const io = new Server(httpServer);
+    const socketPatientMap = new Map();
+
     io.on('connection', (socket) => {
         console.log(`User connected: ${socket.id}`);
 
         socket.on("Patient", (patientData) => {
             console.log(`Patient Information from ${patientData.sender}`, patientData);
+            
+            // Map socket.id to patientId
+            socketPatientMap.set(socket.id, patientData.patientId);
+
             io.emit("Patient", patientData);
         })
 
+        socket.on('formStatus', ({ patientId, status }) => {
+            console.log(`Patient ${patientId} is now ${status}`);
+
+            // Ensure mapping exists
+            socketPatientMap.set(socket.id, patientId);
+
+            io.emit('updatedFormStatus', { patientId, status });  
+        });
+
         socket.on('disconnect', () => {
-            console.log(`User disconnected: ${socket.id}`);
+            const patientId = socketPatientMap.get(socket.id); // Get the patientId from the map
+            console.log(`User disconnected: ${socket.id} (Patient ID: ${patientId})`);
+            
+            if (patientId) {
+                io.emit('updatedFormStatus', { patientId, status: 'inactive' });
+                socketPatientMap.delete(socket.id); // Clean up the mapping
+            } else {
+                console.log('No patientId found for this disconnected socket.');
+            }
         });
     });
     
