@@ -3,7 +3,6 @@
 
 import { PatientContext } from "@/context/patientContext";
 import { Search } from "lucide-react";
-import { useRouter } from "next/navigation";
 import React, { useContext } from "react";
 
 const SearchBar = () => {
@@ -25,9 +24,10 @@ const SearchBar = () => {
   // Filter patients based on the query (ID or name)
   const filteredPatients = patientData.filter((patient) => {
     const lowerCaseQuery = query.toLowerCase();
+    const patientsId = typeof patient.id === 'string' ? patient.id.toLowerCase() : patient?.id || "";
     return (
-      patient.id.toLowerCase().includes(lowerCaseQuery) || // Search by ID
-      `${patient.firstName} ${patient.lastName}`.toLowerCase().includes(lowerCaseQuery) // Search by full name
+      patientsId?.includes(lowerCaseQuery) ||
+      `${patient?.firstName || ""} ${patient?.lastName || ""}`.toLowerCase().includes(lowerCaseQuery)
     );
   });
 
@@ -82,13 +82,13 @@ const SearchBar = () => {
         <div className="absolute top-14 start-20 w-60 bg-white dark:bg-slate-600 rounded-md shadow-lg">
           <h3 className="text-lg font-semibold mb-2 px-3">Search Results</h3>
           <div className="px-3">
-            {filteredPatients.map((patient) => (
+            {filteredPatients?.map((patient) => (
               <button 
                 key={patient.id}
                 onClick={() => handleClick(patient.id)} 
                 className="mb-2 p-2 bg-gray-100 dark:bg-gray-700 rounded-lg active:scale-95">
                 <p className="text-gray-900 dark:text-gray-100">
-                  <span className="font-semibold">{patient.firstName} {patient.lastName}</span> - ID: {patient.id}
+                  <span className="font-semibold">{patient?.firstName || ""} {patient?.lastName || ""}</span> - ID: {patient?.id || ""}
                 </p>
               </button>
             ))}
