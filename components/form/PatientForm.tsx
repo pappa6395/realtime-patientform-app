@@ -168,7 +168,7 @@ export default function PatientForm() {
         const emitAndNavigate = (imageData: string | null) => {
             socket.emit("Patient", { ...data, image: imageData, sender: data.firstName });
             socket.emit("formStatus", { patientId, status: "submitted" });
-
+            toast.success("Patient Form successfully submitted")
             router.push(`/formsubmit?id=${data.id || ""}`);
             setIsLoading(false);
         };
