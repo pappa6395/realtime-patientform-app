@@ -11,6 +11,7 @@ type TextInputProps = {
   className?: string;
   toolTipText?: string;
   placeholder?: string;
+  rules?: any
   onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 export default function TextInput({
@@ -22,6 +23,7 @@ export default function TextInput({
   onChange,
   name,
   placeholder,
+  rules
 }: TextInputProps) {
 
 return (

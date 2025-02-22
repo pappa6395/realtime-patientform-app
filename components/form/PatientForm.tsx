@@ -15,6 +15,7 @@ import OptionalTextInput from "../formInput/OptionalTextInput";
 import { debounce, throttle } from "@/lib/debounce";
 import { usePathname, useRouter } from "next/navigation";
 import { PatientContext } from "@/context/patientContext";
+import toast from "react-hot-toast";
 
 
 type FormData = {
@@ -52,7 +53,9 @@ export default function PatientForm() {
 
   const { 
     register, 
-    handleSubmit, 
+    reset,
+    handleSubmit,
+    trigger, 
     formState: { errors }
     } = useForm<FormData>({
         defaultValues: {
@@ -127,20 +130,32 @@ export default function PatientForm() {
         }
     };
 
-    const onSubmit = (data: FormData) => {
+    const onSubmit = async (data: FormData) => {
         setLangError(false);
         setNationalError(false);
         setIsLoading(true);
         const imageFile = data.image[0] ?? null;
         const reader = new FileReader();
         
-        if (!language && !selectedNationality) {
-            return setLangError(true), setNationalError(true), setIsLoading(false);
-        } else if (!selectedNationality) {
-            return setNationalError(true), setIsLoading(false); 
-        } else if (!language) {
-            return setLangError(true), setIsLoading(false);;
+        const step1Valid = await trigger([
+            "firstName", "lastName", "dateOfBirth", "gender", "phoneNumber", "email"
+        ]);
+    
+        const step2Valid = await trigger([
+            "unitNumber", "streetAddress", "city", "state", "country", "postalCode"
+        ]);
+        if (!step1Valid || !step2Valid) {
+            toast.error("Please complete all required fields in previous steps.");
+            return;
         }
+
+        if (!language || !selectedNationality) {
+            setIsLoading(false);
+            if (!language) setLangError(true);
+            if (!selectedNationality) setNationalError(true);
+            return; // Stop submission if missing
+        }
+    
         
         data.preferredLanguage = language;
         data.nationality = selectedNationality;
@@ -222,14 +237,40 @@ export default function PatientForm() {
         debouncedIdle();
     };
 
+    const handlePrevious = () => {
+        setStep(currStep => currStep - 1);
+    };
+
+    const handleNext = async () => {
+        const isValid = await trigger([
+            "firstName", 
+            "lastName", 
+            "email", 
+            "phoneNumber", 
+            "gender", 
+            "dateOfBirth",
+            "streetAddress", 
+            "unitNumber", 
+            "city", 
+            "state", 
+            "postalCode",
+            "country"
+        ]); // Adjust fields per step
+        if (isValid) {
+            setStep(currStep => currStep + 1);
+        } else {
+            toast.error("Please fill all required fields before proceeding.");
+        }
+    };
+
     const handleClose = () => {
         router.push('/leaving');
     }
 
 
   return (
-    <div className="max-w-4xl h-[550px] mx-auto p-5 bg-white dark:bg-emerald-700 rounded-lg shadow-md">
-        <h2 className="text-xl font-semibold mb-4">
+    <div className="max-w-4xl mx-auto p-5 bg-white dark:bg-emerald-700 rounded-lg shadow-md">
+        <h2 className="text-xl text-slate-700 font-semibold mb-4">
             Patient Information
         </h2>
       <form onSubmit={handleSubmit(onSubmit)} onChange={handleChange}>
@@ -242,12 +283,14 @@ export default function PatientForm() {
                             errors={errors}
                             label="First Name"
                             name="firstName"
+                            rules={{ required: "First name is required" }}
                         />
                         <TextInput
                             register={register}
                             errors={errors}
                             label="Last Name"
                             name="lastName"
+                            rules={{ required: "Last name is required" }}
                         />
                         <OptionalTextInput
                             register={register}
@@ -261,6 +304,7 @@ export default function PatientForm() {
                             label="Date of Birth"
                             name="dateOfBirth"
                             type="date"
+                            rules={{ required: "Date of Birth is required" }}
                         />
                         <div className="col-span-full gap-6">
                             <RadioInput
@@ -269,6 +313,7 @@ export default function PatientForm() {
                                 register={register}
                                 name="gender"
                                 errors={errors}
+                                rules={{ required: "Gender is required" }}
                             />
                         </div>
                         <TextInput
@@ -277,6 +322,7 @@ export default function PatientForm() {
                             label="Phone Number"
                             name="phoneNumber"
                             type="tel"
+                            rules={{ required: "Phone number is required" }}
                         />
                         <TextInput
                             register={register}
@@ -284,6 +330,10 @@ export default function PatientForm() {
                             label="Email"
                             name="email"
                             type="email"
+                            rules={{
+                                required: "Email is required",
+                                pattern: { value: /^\S+@\S+$/i, message: "Invalid email format" }
+                            }}
                         />
                     </div>
                     <div className="flex items-center justify-between mx-3 px-3 mt-12 pt-6">
@@ -299,7 +349,7 @@ export default function PatientForm() {
                             type="button" 
                             className="bg-blue-500 text-white shadow-md
                             px-4 py-2 mt-2 flex items-center rounded gap-2 active:scale-95"
-                            onClick={() => setStep(currStep => currStep + 1)}
+                            onClick={handleNext}
                         >   
                             <span>Next</span>
                             <ArrowBigRight className="size-6"/> 
@@ -356,7 +406,7 @@ export default function PatientForm() {
                     <div className="flex items-center justify-between mx-3 px-3 mt-14 pt-14">
                         <button
                             type="button"
-                            onClick={() => setStep(currStep => currStep - 1)} 
+                            onClick={handlePrevious} 
                             className="bg-blue-500 text-white shadow-md
                             px-4 py-2 mt-2 rounded flex items-center gap-3 active:scale-95">
                             <ArrowBigLeft className="size-6"/>    
@@ -366,7 +416,7 @@ export default function PatientForm() {
                             type="button" 
                             className="bg-blue-500 text-white shadow-md
                             px-4 py-2 mt-2 flex items-center rounded gap-2 active:scale-95"
-                            onClick={() => setStep(currStep => currStep + 1)}
+                            onClick={handleNext}
                         >   
                             <span>Next</span>
                             <ArrowBigRight className="size-6"/> 
@@ -377,9 +427,9 @@ export default function PatientForm() {
             )}
             
             {step === 3 && (
-                <div>
+                <div className="mx-2 px-2">
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
+                        <div className="px-2">
                             <label className="block col-span-full text-base 
                             font-semibold text-gray-900 dark:text-slate-50 pt-2"
                             >
@@ -397,7 +447,7 @@ export default function PatientForm() {
                                 </p>
                             )}
                         </div>
-                        <div>
+                        <div className="px-2">
                             <label className="block col-span-full text-base 
                             font-semibold text-gray-900 dark:text-slate-50 pt-2"
                             >
@@ -424,25 +474,30 @@ export default function PatientForm() {
                             register={register}
                             label="Emergency Contact: Name"
                             name="emergencyContact.name"
+                            className="px-4"
                         />
                         <OptionalTextInput
                             register={register}
                             label="Relationship"
                             name="emergencyContact.relationship"
+                            className="px-4"
                         />
                         <OptionalTextInput
                             register={register}
                             label="Religion"
                             name="religion"
                             type="text"
+                            className="px-4"
                         />
                     </div>
-                    <input 
+                    <div className="w-[260px] sm:w-full">  
+                        <input 
                             type="file" 
                             accept="image/*" 
                             {...register("image")} 
                             onChange={handleImageChange} 
-                            className="border dark:file:bg-emerald-800  p-2 w-full mb-2 mt-4" 
+                            className="border dark:file:bg-emerald-800 
+                            p-2 w-full mb-2 mt-4 px-4" 
                         />
                         {   previewImage &&
                             <div className="relative ">
@@ -458,10 +513,11 @@ export default function PatientForm() {
                                 </button>
                             </div> 
                         }
+                    </div>
                     <div className="flex justify-between mt-4 mx-2">
                         <button
                             type="button"
-                            onClick={() => setStep(currStep => currStep - 1)} 
+                            onClick={handlePrevious} 
                             className="bg-blue-500 text-white shadow-md
                             px-4 py-2 mt-2 rounded flex items-center gap-3 active:scale-95">
                             <ArrowBigLeft className="size-6"/>    

@@ -19,12 +19,10 @@ export default function StaffView() {
   const { 
     patientData, 
     setPatientData,
-    selectedPatient, 
     setSelectedPatient,
-    patientId, 
-    setPatientId,
     patientStatus, 
-    setPatientStatus 
+    setPatientStatus,
+    setMobileMenuOpen
   } = context;
 
 
@@ -99,6 +97,11 @@ export default function StaffView() {
     localStorage.setItem("patients", JSON.stringify(updatedPatient));
   };
 
+  const handleToggleCard = (patient: PatientData) => {
+    setSelectedPatient(patient)
+    setMobileMenuOpen(false)
+  }
+
   return (
     <div className="max-w-xl h-full bg-gradient-to-b bg-slate-200 
         dark:from-slate-700 dark:to-slate-700">
@@ -110,10 +113,10 @@ export default function StaffView() {
       </div>
         <aside className="space-y-1.5 h-[800px] overflow-scroll z-50 mx-2 px-2">
         <h2 className="text-xl font-bold mb-4">Patient Info Data Box</h2>
-            {patientData.map((patient, index) => (
+            {patientData.slice().reverse().map((patient, index) => (
             <div
                 key={index}
-                onClick={() => setSelectedPatient(patient)}
+                onClick={() => handleToggleCard(patient)}
                 className="cursor-pointer active:scale-95"
             >
                 <PatientCard patient={patient} onSelect={handleSelectPatient} />

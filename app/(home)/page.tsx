@@ -25,10 +25,14 @@ const Home = () => {
 
   },[setStep])
 
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'smooth'})
+  })
+
 
   return (
 
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center sm:h-screen mx-auto">
       <div className='mt-4 mb-4 bg-white py-5 px-4 rounded-xl shadow-xl'>
         <h2 className='text-slate-400 font-bold text-2xl mb-4'>Patient Registration</h2>
         <div className='mb-4'>
@@ -47,10 +51,10 @@ const Home = () => {
                         <CircleCheck className='size-6 mr-2' />
                       )
                        : (
-                        <span className='text-lg mr-2'>{s.step}.</span>
+                        <span className='text-xs sm:text-lg mr-2'>{s.step}.</span>
                        )}
                         
-                        <span className='text-lg'>{s.title}</span>
+                        <span className='text-xs sm:text-lg'>{s.title}</span>
                     </span>
                   </li>
                 )

@@ -12,7 +12,7 @@ export default function Footer() {
             items: [
                 {
                     href: '#',
-                    name: 'List of your services'
+                    name: 'List of services'
                 },
                 {
                     href: '#',
@@ -129,7 +129,7 @@ export default function Footer() {
                         </ul>
                     </div>
                 </div>
-                <div className="flex-1 mr-4 mt-10 space-y-6 items-center justify-between sm:flex md:space-y-0 md:mt-0">
+                <div className="flex-1 px-2 pt-2 mt-2 flex items-center justify-between">
                     {
                         footerNavs.map((item, idx) => (
                             <ul
@@ -158,10 +158,12 @@ export default function Footer() {
                     }
                 </div>
             </div>
-            <div className="mt-8 py-2 border-t items-center justify-center sm:flex">
+            <div className="mt-8 py-2 border-t flex items-center justify-center">
                 <div className="mt-4 sm:mt-0 dark:text-slate-300">
-                    &copy; {(new Date).getFullYear()} Created with 
-                    {' '}<FaHeart className='inline text-pink-500'/> by Pap Nontachai.
+                    <span className='text-center'>
+                        &copy; {(new Date).getFullYear()} Created with 
+                        {' '}<FaHeart className='inline text-pink-500'/> by Pap Nontachai.
+                    </span>
                 </div>
             </div>
         </footer>

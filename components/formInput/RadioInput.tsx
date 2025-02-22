@@ -12,6 +12,7 @@ type RadioInputProps = {
     label: string;
     name: string;
     errors: any;
+    rules?: any;
 };
 
 export default function RadioInput({
@@ -19,6 +20,7 @@ export default function RadioInput({
     register,
     label,
     name,
+    rules,
     errors,
 }: RadioInputProps) {
     return (

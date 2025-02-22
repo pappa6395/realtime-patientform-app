@@ -5,32 +5,31 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useContext, useEffect, useState } from 'react'
 import { ModeToggle } from '../ModeToggle'
-import SearchBar from '../frontend/SearchBar'
+import SearchBar from './SearchBar'
 import StaffView from '../form/StaffView'
 import StatusNotification from './StatusNotification'
 import { PatientContext } from '@/context/patientContext'
-import { PatientData, PatientStatus } from '@/type/types'
+import { PatientData } from '@/type/types'
 
 
 const NavBar = () => {
 
     const pathname = usePathname()
-    const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
 
     const context = useContext(PatientContext);
         
     if (!context) {
     throw new Error("PatientDetails must be used within a PatientProvider");
     }
-    const [allPatients, setAllPatients] = useState<PatientData[]>([]);
+
     const [latestPatient, setLatestPatient] = useState<PatientData | null>(null);
     const [showNotification, setShowNotification] = useState(false);
 
     const { 
     patientData, 
-    selectedPatient,
-    patientStatus, 
-    setPatientStatus,
+    mobileMenuOpen,
+    setMobileMenuOpen
     } = context;
 
     useEffect(() => {
@@ -109,8 +108,8 @@ const NavBar = () => {
                  <button
                     type="button"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="block lg:hidden rounded-md text-gray-800 top-0 
-                    left-60 dark:text-gray-300 absolute"
+                    className="block lg:hidden rounded-md text-gray-800 -top-1 z-50 
+                    start-64  dark:text-gray-300 absolute"
                 >
                     <span className="sr-only">Close menu</span>
                     <XCircle className="size-6"/>

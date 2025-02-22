@@ -14,6 +14,8 @@ interface PatientContextType {
   setPatientStatus: React.Dispatch<React.SetStateAction<PatientStatus[]>>;
   step: number;
   setStep: React.Dispatch<React.SetStateAction<number>>;
+  mobileMenuOpen: boolean;
+  setMobileMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const PatientContext = createContext<PatientContextType | null>(null);
@@ -24,6 +26,7 @@ export function PatientProvider({ children }: { children: ReactNode }) {
   const [patientId, setPatientId] = useState<string>("");
   const [patientStatus, setPatientStatus] = useState<PatientStatus[]>([]);
   const [step, setStep] = useState<number>(1);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <PatientContext.Provider value={{ 
@@ -36,7 +39,9 @@ export function PatientProvider({ children }: { children: ReactNode }) {
       patientStatus, 
       setPatientStatus,
       step, 
-      setStep 
+      setStep,
+      mobileMenuOpen, 
+      setMobileMenuOpen 
     }}>
       {children}
     </PatientContext.Provider>

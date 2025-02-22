@@ -22,17 +22,17 @@ const page = () => {
             alt="sorry"
             width={300}
             height={300}
+            className='size-64'
         />
-        <p className='text-slate-50 text-2xl font-semibold'>
-          
-        </p>
-        <p className='text-slate-50 text-3xl font-semibold'>We are sorry to hear your leaving</p>
-        <p className='text-slate-50 text-2xl font-semibold'>
-          Thank you for your visiting. We hope to welcome you back soon
-        </p>
-        <p className='text-slate-50 text-2xl font-semibold'>
-          Or if you change your mind, you are always welcome.
-        </p>
+        <div className='flex flex-col items-center justify-center px-4 gap-4'>
+          <p className='text-slate-50 text-center text-3xl font-semibold'>We are sorry to hear your leaving</p>
+          <p className='text-slate-50 text-center text-2xl font-semibold'>
+            Thank you for your visiting. We hope to welcome you back soon
+          </p>
+          <p className='text-slate-50 text-center text-2xl font-semibold'>
+            Or if you change your mind, you are always welcome.
+          </p>
+        </div>
         <div className='flex justify-center'>
             <button 
                 type="button"

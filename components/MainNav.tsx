@@ -4,9 +4,8 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { siteConfig } from "@/config/site"
 import { cn } from "@/lib/utils"
-import { Hospital, HospitalIcon } from "lucide-react"
+import { Hospital } from "lucide-react"
 import { docsConfig } from "@/config/docs"
-import Image from "next/image"
 
 export function MainNav() {
   const pathname = usePathname()
@@ -19,7 +18,7 @@ export function MainNav() {
           {siteConfig.name}
         </span>
       </Link>
-      <nav className="hidden sm:flex items-center gap-4 text-sm xl:gap-6">
+      <nav className="hidden sm:flex items-center ml-2 gap-4 text-sm xl:gap-6">
         {
           docsConfig.mainNav.map((item,i) => {
             return (
@@ -31,7 +30,7 @@ export function MainNav() {
                   pathname === item.href ? "text-foreground" : "text-foreground/80"
                 )}
               >
-                {item.title}
+                <span className="line-clamp-2">{item.title}</span>
               </Link>
             )
           })

@@ -1,36 +1,126 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+Realtime Patient Form
 
-## Getting Started
+📝 Overview
 
-First, run the development server:
+The Realtime Patient Form is a dynamic web application designed for efficient management of patient data in real-time. This platform allows staff to handle patient form submissions, track statuses, receive instant notifications, and maintain data consistency across devices. Its responsive design ensures a seamless experience on desktops, tablets, and smartphones.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+⚡ Tech Stack
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+📚 Framework: Next.js
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Server-side Rendering (SSR): Enhances performance and SEO by pre-rendering pages on the server.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+File-based Routing: Simplifies navigation and route management.
 
-## Learn More
+API Routes: Enables backend API creation within the Next.js project.
 
-To learn more about Next.js, take a look at the following resources:
+🎨 Styling: Tailwind CSS
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Utility-First Approach: Rapidly build custom designs without leaving the HTML.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Responsive Design: Built-in responsiveness makes designing for different devices seamless.
 
-## Deploy on Vercel
+Customization: Tailwind’s config file allows easy theme adjustments.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+🔌 Realtime Communication: WebSocket & Socket.io
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Bidirectional Communication: Enables real-time updates between clients and the server.
+
+Low Latency: Ensures instant updates for patient status, notifications, and form submissions.
+
+Event-Driven: Makes handling specific actions (e.g., new patient submission) efficient and scalable.
+
+🌐 Hosting
+
+Frontend: Netlify
+
+Continuous Deployment: Automatically deploys changes from the GitHub repository.
+
+Global CDN: Ensures fast load times across the world.
+
+Built-in SSL: Secures the site with HTTPS by default.
+
+Backend: Railway
+
+Simplified Backend Hosting: Manages Node.js servers and databases effortlessly.
+
+Easy WebSocket Support: Ensures seamless real-time connections.
+
+Scalability: Handles increased traffic and connections smoothly.
+
+Website now Live on https://realtime-patientform.netlify.app/
+
+💡 Features
+
+✅ Patient Status Tracking
+
+Track the real-time status of each patient (e.g., submitted, active, inactive, idle and filling).
+
+Auto-updates across all connected clients when changes occur.
+
+🔔 Notifications
+
+Receive instant alerts when new patient forms are submitted.
+
+Visual indicators (like red dots) highlight new activities.
+
+🔍 Search Functionality
+
+Search patients by ID or full name.
+
+Case-insensitive and optimized for quick filtering.
+
+💾 Data Persistence
+
+Utilizes localStorage to maintain patient status and form data.
+
+Ensures no data loss on page refresh or accidental closures.
+
+📱 Responsive Design
+
+Fully optimized for desktops, tablets, and mobile devices.
+
+Adaptive layouts ensure a user-friendly interface on all screen sizes.
+
+🚀 Setup Instructions
+
+Clone the Repository:
+
+git clone https://github.com/pappa6395/realtime-patientform-app.git
+cd realtime-patientform
+
+Install Dependencies:
+
+npm install
+
+Configure Environment Variables:
+Create a .env file and add necessary configurations:
+
+NEXT_PUBLIC_BACKEND_URL=http://localhost:3002
+HOSTNAME="localhost"
+PORT=3002
+
+Run Locally:
+
+npm run dev:socket
+
+Build for Production:
+
+npm run build:socket
+npm run start:socket
+
+📊 Why This Tech Stack?
+
+Next.js offers the flexibility of static and dynamic pages, perfect for real-time applications with SEO benefits.
+
+Tailwind CSS allows rapid UI development while maintaining consistency and responsiveness.
+
+WebSocket & Socket.io ensure real-time, low-latency communication, critical for instant form updates and notifications.
+
+Netlify provides a hassle-free frontend hosting solution with global reach and built-in CI/CD.
+
+Railway simplifies backend management, making real-time communication smooth and scalable.
+
+🙌 Contributing
+
+Feel free to fork this repo and submit a PR for any improvements or new features.
