@@ -96,9 +96,9 @@ npm install
 Configure Environment Variables:
 Create a .env file and add necessary configurations:
 
-NEXT_PUBLIC_BACKEND_URL=http://localhost:3002
+NEXT_PUBLIC_BACKEND_URL=your-local-backend
 HOSTNAME="localhost"
-PORT=3002
+PORT=your-port
 
 Run Locally:
 

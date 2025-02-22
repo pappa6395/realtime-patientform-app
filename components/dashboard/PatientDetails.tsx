@@ -5,7 +5,7 @@ import { getAgeFromDoB } from '@/lib/getAgeFromDoB';
 import { getNormalDate } from '@/lib/getNormalDate';
 import { timeAgo } from '@/lib/timeAgo';
 import { PatientData } from '@/type/types';
-import { Ambulance, Calendar, Clock9 } from 'lucide-react'
+import { Ambulance, Clock9 } from 'lucide-react'
 import Image from 'next/image';
 import React, { useContext, useEffect, useState } from 'react'
 

@@ -1,10 +1,10 @@
 import { GenderOptionProps } from "@/type/types";
 import React from "react";
  
-type RadioOption = {
-    label: string;
-    id: string;
-};
+// type RadioOption = {
+//     label: string;
+//     id: string;
+// };
 
 type RadioInputProps = {
     genderOptions: GenderOptionProps[];

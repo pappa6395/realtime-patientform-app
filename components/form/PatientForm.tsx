@@ -153,7 +153,7 @@ export default function PatientForm() {
             setIsLoading(false);
             if (!language) setLangError(true);
             if (!selectedNationality) setNationalError(true);
-            return; // Stop submission if missing
+            return;
         }
     
         
@@ -255,7 +255,7 @@ export default function PatientForm() {
             "state", 
             "postalCode",
             "country"
-        ]); // Adjust fields per step
+        ]);
         if (isValid) {
             setStep(currStep => currStep + 1);
         } else {

@@ -1,7 +1,7 @@
 export const siteConfig = {
     name: "MediCare RealtimeForm",
-    url: "https://medical-app-o384.vercel.app",
-    ogImage: "/medicalPagePic.png",
+    url: "https://realtime-patientform.netlify.app/",
+    ogImage: "/realtime-patientform-app.jpeg",
     description:
       "Health should not be a puzzle, we are cutting through the B.S to bring you simple , affordable and transparent healthcare",
     links: {

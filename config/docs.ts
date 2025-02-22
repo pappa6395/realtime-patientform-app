@@ -1,5 +1,6 @@
 import { MainNavItem } from "@/type/types"
 
+
 export interface DocsConfig {
   mainNav: MainNavItem[]
   
@@ -29,3 +30,70 @@ export const docsConfig: DocsConfig = {
     },
   ]
 }
+
+export const footerNavs = [
+  {
+      label: "Company",
+      items: [
+          {
+              href: '#',
+              name: 'List of services'
+          },
+          {
+              href: '#',
+              name: 'Blog'
+          },
+          {
+              href: '#',
+              name: 'Team'
+          },
+          {
+              href: '#',
+              name: 'Careers'
+          },
+      ],
+  },
+  {
+      label: "Resources",
+      items: [
+          {
+              href: '#',
+              name: 'contact'
+          },
+          {
+              href: '#',
+              name: 'Support'
+          },
+          {
+              href: '#',
+              name: 'Docs'
+          },
+          {
+              href: '#',
+              name: 'Pricing'
+          },
+      ],
+  },
+  {
+      label: "About",
+      items: [
+          {
+              href: '#',
+              name: 'Terms'
+          },
+          {
+              href: '#',
+              name: 'License'
+          },
+          {
+              href: '#',
+              name: 'Privacy'
+          },
+          {
+              href: '#',
+              name: 'About us'
+          },
+      ]
+  }
+]
+

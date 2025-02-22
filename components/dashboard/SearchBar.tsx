@@ -18,18 +18,18 @@ const SearchBar = () => {
 
   const handleSearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    // You can add additional logic here if needed
+
   };
 
-  // Filter patients based on the query (ID or name)
+  
   const filteredPatients = patientData.filter((patient) => {
     const lowerCaseQuery = query.toLowerCase();
     const id = patient.id !== undefined && patient.id !== null 
     ? patient.id.toString().toLowerCase() 
     : '';
     return (
-      id.includes(lowerCaseQuery) || // Search by ID
-      `${patient?.firstName || ""} ${patient?.lastName || ""}`.toLowerCase().includes(lowerCaseQuery) // Search by full name
+      id.includes(lowerCaseQuery) ||
+      `${patient?.firstName || ""} ${patient?.lastName || ""}`.toLowerCase().includes(lowerCaseQuery)
     );
   });
 

@@ -1,76 +1,12 @@
 "use client"
 
+import { footerNavs } from '@/config/docs';
 import Link from 'next/link';
 import React from 'react'
 import { FaLinkedinIn, FaFacebookF, FaYoutube, FaInstagram, FaHeart } from "react-icons/fa";
 
 export default function Footer() {
 
-    const footerNavs = [
-        {
-            label: "Company",
-            items: [
-                {
-                    href: '#',
-                    name: 'List of services'
-                },
-                {
-                    href: '#',
-                    name: 'Blog'
-                },
-                {
-                    href: '#',
-                    name: 'Team'
-                },
-                {
-                    href: '#',
-                    name: 'Careers'
-                },
-            ],
-        },
-        {
-            label: "Resources",
-            items: [
-                {
-                    href: '#',
-                    name: 'contact'
-                },
-                {
-                    href: '#',
-                    name: 'Support'
-                },
-                {
-                    href: '#',
-                    name: 'Docs'
-                },
-                {
-                    href: '#',
-                    name: 'Pricing'
-                },
-            ],
-        },
-        {
-            label: "About",
-            items: [
-                {
-                    href: '#',
-                    name: 'Terms'
-                },
-                {
-                    href: '#',
-                    name: 'License'
-                },
-                {
-                    href: '#',
-                    name: 'Privacy'
-                },
-                {
-                    href: '#',
-                    name: 'About us'
-                },
-            ]
-        }
-    ]
 
     const socialLinks = [
         {

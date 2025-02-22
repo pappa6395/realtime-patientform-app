@@ -1,9 +1,9 @@
 "use client"
 
-import { useEffect, useContext, useState } from "react";
+import { useEffect, useContext } from "react";
 import { socket } from "@/lib/socketClient";
 import PatientCard from "../dashboard/PatientCard";
-import { PatientData, PatientStatus } from "@/type/types";
+import { PatientData } from "@/type/types";
 import { PatientContext } from "@/context/patientContext";
 import Logo from "../Logo";
 

@@ -19,7 +19,6 @@ const layout = ({children}: {children: React.ReactNode}) => {
           {children}
           <Footer />
         </div>
-        
     </div>
 
   )
