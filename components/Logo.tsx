@@ -14,7 +14,9 @@ const Logo = ({
   return (
 
     <div>
-        <Link href="/" className="mr-4 flex items-center gap-2 lg:mr-6">
+        <Link 
+          href="/"
+          className="mr-4 flex items-center gap-2 lg:mr-6">
             <Hospital className={`mr-2 flex-shrink-0 ${classLogo}`}/>
             <span className={`font-bold lg:inline-block ${className}`}>
             {siteConfig.name}
